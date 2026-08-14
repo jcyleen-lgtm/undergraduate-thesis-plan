@@ -22,7 +22,6 @@ function flowerBurst(x,y){
 const quotes=[
   '"The secret of getting ahead is getting started." — Mark Twain',
   '"Small daily improvements over time lead to stunning results." — Robin Sharma',
-  '"A garden requires patient labor. So does a thesis."',
   '"You don\'t have to be great to start, but you have to start to be great." — Zig Ziglar',
   '"It always seems impossible until it\'s done." — Nelson Mandela',
   '"Plant your seeds with patience. The bloom will come."',
@@ -34,8 +33,13 @@ const quotes=[
   '"A thesis is just a very long love letter to your curiosity."',
   '"You are doing better than you think. Keep going."',
   '"The flower that blooms in adversity is the rarest and most beautiful of all."',
-  '"Don\'t watch the clock; do what it does — keep going." — Sam Levenson'
+  '"Don\'t watch the clock; do what it does — keep going." — Sam Levenson',
+  '"Sometimes you gotta run before you can walk." — Tony Stark',
+  '"Part of the journey is the end." — Tony Stark',
+  '"With great power comes great responsibility." — Spider-Man',
+  '"No matter how buried it gets, or lost you feel, you must promise me that you will hold on to hope." — Aunt May',
 ];
+
 (function setGreeting(){
   const h=new Date().getHours();
   let g='Good evening,';
@@ -54,63 +58,79 @@ const NOTES_KEY="thesis-garden-notes-v1";
 
 const tasks=[
   // FASE 1 MINGGU 1
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-14","Kamis, 14 Agst",'Ekspor laporan transaksi "Sales by Item Detail" dari Accurate PT X periode Jan 2024 - Jun 2026.','DATA',1],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-15","Jumat, 15 Agst",'Setup folder /Skripsi_San/Data/Raw/ dan kelompokkan file Excel bulanan ke dalamnya.','DATA',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-16","Sabtu, 16 Agst",'Bikin draf Skripsi_San_Bab1.docx. Kopas Latar Belakang dari sinopsis.','BAB 1',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-17","Minggu, 17 Agst",'Tulis script Python (pandas) untuk batch-merge seluruh file transaksi bulanan.','PYTHON',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-18","Senin, 18 Agst",'Jalankan script Python dan simpan output: combined_raw_sales.csv.','PYTHON',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-19","Selasa, 19 Agst",'Filter kolom HPP, temukan satu SKU dengan margin aneh ~98.8%.','ANALISIS',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-20","Rabu, 20 Agst",'Temui tim accounting PT X. Validasi apakah margin 98.8% error input atau transaksi khusus.','VALIDASI',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-21","Kamis, 21 Agst",'Koreksi data anomali, jalankan ulang script, ekspor cleaned_sales_data.csv.','DATA',0],
+  ["Fase 1: Data Preparation","Minggu 1","2026-08-14","Jumat, 14 Agst",'Ekspor laporan transaksi "Sales by Item Detail" dari Accurate PT X periode Jan 2024 - Jun 2026.','DATA',1],
+  ["Fase 1: Data Preparation","Minggu 1","2026-08-15","Sabtu, 15 Agst",'Setup folder /Skripsi_San/Data/Raw/ dan kelompokkan file Excel bulanan ke dalamnya.','DATA',0],
+  ["Fase 1: Data Preparation","Minggu 1","2026-08-16","Minggu, 16 Agst",'Bikin draf Skripsi_San_Bab1.docx. Kopas Latar Belakang dari sinopsis.','BAB 1',0],
+  ["Fase 1: Data Preparation","Minggu 1","2026-08-17","Senin, 17 Agst",'Tulis script Python (pandas) untuk batch-merge seluruh file transaksi bulanan.','PYTHON',0],
+  ["Fase 1: Data Preparation","Minggu 1","2026-08-18","Selasa, 18 Agst",'Jalankan script Python dan simpan output: combined_raw_sales.csv.','PYTHON',0],
+  ["Fase 1: Data Preparation","Minggu 1","2026-08-19","Rabu, 19 Agst",'Filter kolom HPP, temukan satu SKU dengan margin aneh ~98.8%.','ANALISIS',0],
+  ["Fase 1: Data Preparation","Minggu 1","2026-08-20","Kamis, 20 Agst",'Temui tim accounting PT X. Validasi apakah margin 98.8% error input atau transaksi khusus.','VALIDASI',0],
+  ["Fase 1: Data Preparation","Minggu 1","2026-08-21","Jumat, 21 Agst",'Koreksi data anomali, jalankan ulang script, ekspor cleaned_sales_data.csv.','DATA',0],
+
   // FASE 1 MINGGU 2
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-22","Jumat, 22 Agst",'Tulis script Python untuk hitung Margin Kontribusi: (Harga Jual - HPP) x Kuantitas.','PYTHON',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-23","Sabtu, 23 Agst",'Urutkan produk berdasarkan Revenue dan Margin Kontribusi untuk Matriks 3x3 Flores & Whybark.','ABC',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-24","Minggu, 24 Agst",'Petakan produk ke Matriks 3x3. Identifikasi produk off-diagonal.','ABC',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-25","Senin, 25 Agst",'Bikin Skripsi_San_Bab3.docx. Tulis Metode Pengumpulan Data dan proses ETL Python.','BAB 3',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-26","Selasa, 26 Agst",'Rancang Kimball 9-Step: proses bisnis, grain, tabel dimensi, tabel fakta penjualan.','KIMBALL',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-27","Rabu, 27 Agst",'Buat diagram Star Schema di Word (fact sales + dimensi waktu, produk, kategori).','KIMBALL',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-28","Kamis, 28 Agst",'Rancang mockup visual dashboard Power BI (letak 6 fitur utama).','POWER BI',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-29","Jumat, 29 Agst",'Tulis draf kuesioner UAT (Likert) dan transkrip wawancara kebutuhan sistem untuk Bab 3.','METODOLOGI',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-30","Sabtu, 30 Agst",'Baca ulang dan rapikan format Bab 1 & Bab 3 bagian penyiapan data.','CHECKPOINT',1],
+  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-22","Sabtu, 22 Agst",'Tulis script Python untuk hitung Margin Kontribusi: (Harga Jual - HPP) x Kuantitas.','PYTHON',0],
+  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-23","Minggu, 23 Agst",'Urutkan produk berdasarkan Revenue dan Margin Kontribusi untuk Matriks 3x3 Flores & Whybark.','ABC',0],
+  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-24","Senin, 24 Agst",'Petakan produk ke Matriks 3x3. Identifikasi produk off-diagonal.','ABC',0],
+  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-25","Selasa, 25 Agst",'Bikin Skripsi_San_Bab3.docx. Tulis Metode Pengumpulan Data dan proses ETL Python.','BAB 3',0],
+  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-26","Rabu, 26 Agst",'Rancang Kimball 9-Step: proses bisnis, grain, tabel dimensi, tabel fakta penjualan.','KIMBALL',0],
+  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-27","Kamis, 27 Agst",'Buat diagram Star Schema di Word (fact sales + dimensi waktu, produk, kategori).','KIMBALL',0],
+  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-28","Jumat, 28 Agst",'Rancang mockup visual dashboard Power BI (letak 6 fitur utama).','POWER BI',0],
+  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-29","Sabtu, 29 Agst",'Tulis draf kuesioner UAT (Likert) dan transkrip wawancara kebutuhan sistem untuk Bab 3.','METODOLOGI',0],
+  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-30","Minggu, 30 Agst",'Baca ulang dan rapikan format Bab 1 & Bab 3 bagian penyiapan data.','CHECKPOINT',1],
+
   // FASE 2 MINGGU 3
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-01","Senin, 1 Sept",'Bikin Skripsi_San_Bab2.docx. Tulis teori dasar Business Intelligence (BI) & Power BI.','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-02","Selasa, 2 Sept",'Tulis teori Klasifikasi ABC Ganda, sitasi Flores & Whybark (1986).','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-03","Rabu, 3 Sept",'Tulis teori peramalan Holt Double Exponential Smoothing (DES).','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-04","Kamis, 4 Sept",'Tulis teori akurasi peramalan MAPE (Mean Absolute Percentage Error).','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-07","Minggu, 7 Sept",'Tulis teori pemodelan dimensional Kimball 9-Step.','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-08","Senin, 8 Sept",'Cari dan ulas 4 Jurnal Sejenis (UNTAR, UGM, ITERA, Chalmers).','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-09","Selasa, 9 Sept",'Buat tabel ringkasan penelitian terdahulu di Bab 2.','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-10","Rabu, 10 Sept",'Masukkan rumus margin kontribusi ke Bab 2. Integrasikan Bab 2 ke draf besar.','BAB 2',0],
+  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-01","Selasa, 1 Sept",'Bikin Skripsi_San_Bab2.docx. Tulis teori dasar Business Intelligence (BI) & Power BI.','BAB 2',0],
+  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-02","Rabu, 2 Sept",'Tulis teori Klasifikasi ABC Ganda, sitasi Flores & Whybark (1986).','BAB 2',0],
+  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-03","Kamis, 3 Sept",'Tulis teori peramalan Holt Double Exponential Smoothing (DES).','BAB 2',0],
+  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-04","Jumat, 4 Sept",'Tulis teori akurasi peramalan MAPE (Mean Absolute Percentage Error).','BAB 2',0],
+  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-07","Senin, 7 Sept",'Tulis teori pemodelan dimensional Kimball 9-Step.','BAB 2',0],
+  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-08","Selasa, 8 Sept",'Cari dan ulas 4 Jurnal Sejenis (UNTAR, UGM, ITERA, Chalmers).','BAB 2',0],
+  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-09","Rabu, 9 Sept",'Buat tabel ringkasan penelitian terdahulu di Bab 2.','BAB 2',0],
+  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-10","Kamis, 10 Sept",'Masukkan rumus margin kontribusi ke Bab 2. Integrasikan Bab 2 ke draf besar.','BAB 2',0],
+
   // FASE 2 MINGGU 4
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-12","Jumat, 12 Sept",'Tulis sub-bab Justifikasi Penolakan Metode: kenapa SES ditolak (data ada tren).','BAB 3',0],
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-15","Senin, 15 Sept",'Tulis justifikasi kenapa Holt-Winters ditolak (data non-musiman), rujuk paper Khedlekar.','BAB 3',0],
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-19","Jumat, 19 Sept",'Gabungkan Bab 1, 2, 3 menjadi satu berkas proposal. Rapikan daftar pustaka IEEE.','FINALISASI',1],
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-25","Kamis, 25 Sept",'Bimbingan kilat dosen pembimbing, perbaikan minor, ekspor PDF, jilid proposal.','FINALISASI',1],
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-28","Minggu, 28 Sept",'SUBMIT PROPOSAL LENGKAP BAB 1-3 KE KAMPUS.','DEADLINE',1],
+  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-12","Sabtu, 12 Sept",'Tulis sub-bab Justifikasi Penolakan Metode: kenapa SES ditolak (data ada tren).','BAB 3',0],
+  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-15","Selasa, 15 Sept",'Tulis justifikasi kenapa Holt-Winters ditolak (data non-musiman), rujuk paper Khedlekar.','BAB 3',0],
+  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-19","Sabtu, 19 Sept",'Gabungkan Bab 1, 2, 3 menjadi satu berkas proposal. Rapikan daftar pustaka IEEE.','FINALISASI',1],
+  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-25","Jumat, 25 Sept",'Bimbingan kilat dosen pembimbing, perbaikan minor, ekspor PDF, jilid proposal.','FINALISASI',1],
+  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-28","Senin, 28 Sept",'SUBMIT PROPOSAL LENGKAP BAB 1-3 KE KAMPUS.','DEADLINE',1],
+
   // FASE 3
-  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-04","4 Okt",'Rancang slide presentasi proposal. Latihan jawab pertanyaan kritis.','SIDANG',1],
-  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-05","5-16 Okt",'SIDANG PROPOSAL. Presentasikan rencana penelitian, skema Kimball, mockup dashboard.','SIDANG',1],
-  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-17","Pasca Sidang",'Selesaikan revisi dari dosen penguji. Minta tanda tangan persetujuan.','REVISI',0],
-  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-25","Akhir Okt",'Jalankan script Python Holt DES bulanan per produk. Hubungkan output ke Power BI.','POWER BI',0],
+  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-04","Minggu, 4 Okt",'Rancang slide presentasi proposal. Latihan jawab pertanyaan kritis.','SIDANG',1],
+  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-05","Senin, 5-16 Okt",'SIDANG PROPOSAL. Presentasikan rencana penelitian, skema Kimball, mockup dashboard.','SIDANG',1],
+  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-17","Sabtu, 17 Okt",'Selesaikan revisi dari dosen penguji. Minta tanda tangan persetujuan.','REVISI',0],
+  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-25","Minggu, 25 Okt",'Jalankan script Python Holt DES bulanan per produk. Hubungkan output ke Power BI.','POWER BI',0],
+
   // FASE 4 MINGGU 5
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-01","Sabtu, 1 Nov",'Hubungkan tabel fakta dan dimensi (Star Schema) di Power BI Desktop.','POWER BI',1],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-02","Minggu, 2 Nov",'Buat formula DAX untuk klasifikasi ABC ganda Flores & Whybark.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-03","Senin, 3 Nov",'Bangun halaman 1: Visualisasi Matriks ABC Ganda (3x3) dan Top 5 Produk.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-04","Selasa, 4 Nov",'Bangun halaman 2: Grafik Forecast Holt DES bulanan per produk.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-05","Rabu, 5 Nov",'Bangun halaman 3: Indikator Reorder Point dan rekomendasi Kuantitas Pemesanan.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-06","Kamis, 6 Nov",'Tambahkan slicer/filter kategori produk dan periode waktu.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-07","Jumat, 7 Nov",'Self-test: pastikan semua visualisasi dan filter Power BI tanpa error.','POWER BI',1],
+  ["Fase 4: Dashboard Build","Minggu 5","2026-11-01","Minggu, 1 Nov",'Hubungkan tabel fakta dan dimensi (Star Schema) di Power BI Desktop.','POWER BI',1],
+  ["Fase 4: Dashboard Build","Minggu 5","2026-11-02","Senin, 2 Nov",'Buat formula DAX untuk klasifikasi ABC ganda Flores & Whybark.','POWER BI',0],
+  ["Fase 4: Dashboard Build","Minggu 5","2026-11-03","Selasa, 3 Nov",'Bangun halaman 1: Visualisasi Matriks ABC Ganda (3x3) dan Top 5 Produk.','POWER BI',0],
+  ["Fase 4: Dashboard Build","Minggu 5","2026-11-04","Rabu, 4 Nov",'Bangun halaman 2: Grafik Forecast Holt DES bulanan per produk.','POWER BI',0],
+  ["Fase 4: Dashboard Build","Minggu 5","2026-11-05","Kamis, 5 Nov",'Bangun halaman 3: Indikator Reorder Point dan rekomendasi Kuantitas Pemesanan.','POWER BI',0],
+  ["Fase 4: Dashboard Build","Minggu 5","2026-11-06","Jumat, 6 Nov",'Tambahkan slicer/filter kategori produk dan periode waktu.','POWER BI',0],
+  ["Fase 4: Dashboard Build","Minggu 5","2026-11-07","Sabtu, 7 Nov",'Self-test: pastikan semua visualisasi dan filter Power BI tanpa error.','POWER BI',1],
+
   // FASE 4 MINGGU 6
-  ["Fase 4: Uji Program & UAT","Minggu 6","2026-11-09","9-20 Nov",'UJI PROGRAM KAMPUS. Demokan dashboard ke lab/dosen penguji.','UJI PROGRAM',1],
-  ["Fase 4: Uji Program & UAT","Minggu 6","2026-11-14","14-17 Nov",'Demo dashboard fungsional ke 3-5 responden internal PT X.','UAT',0],
-  ["Fase 4: Uji Program & UAT","Minggu 6","2026-11-18","18-20 Nov",'Bagikan kuesioner Likert UAT, rekap ke Excel, hitung rata-rata skor.','UAT',0],
+  ["Fase 4: Uji Program & UAT","Minggu 6","2026-11-09","Senin, 9-20 Nov",'UJI PROGRAM KAMPUS. Demokan dashboard ke lab/dosen penguji.','UJI PROGRAM',1],
+  ["Fase 4: Uji Program & UAT","Minggu 6","2026-11-14","Sabtu, 14-17 Nov",'Demo dashboard fungsional ke 3-5 responden internal PT X.','UAT',0],
+  ["Fase 4: Uji Program & UAT","Minggu 6","2026-11-18","Rabu, 18-20 Nov",'Bagikan kuesioner Likert UAT, rekap ke Excel, hitung rata-rata skor.','UAT',0],
+
   // FASE 4 MINGGU 7
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-21","Jumat, 21 Nov",'Tulis Bab 4: Hasil UAT, nilai MAPE, analisis produk off-diagonal.','BAB 4-5',1],
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-22","Sabtu, 22 Nov",'Tulis Bab 5: Kesimpulan & Saran menjawab 4 rumusan masalah. Gabung PDF utuh.','BAB 4-5',1],
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-23","Minggu, 23 Nov",'SUBMIT BUKU SKRIPSI FINAL BAB 1-5 KE KAMPUS.','DEADLINE',1],
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-24","24-29 Nov",'Siapkan slide presentasi akhir. Simulasi presentasi. Latihan pertanyaan dosen.','SIDANG',1],
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-30","Minggu, 30 Nov",'SIDANG AKHIR SKRIPSI -- resmi lulus S.Kom!','FINAL',1]
-].map((x,i)=>({id:i+1,section:x[0],phase:x[1],date:x[2],day:x[3],title:x[4],tag:x[5],urgent:x[6]}));
+  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-21","Sabtu, 21 Nov",'Tulis Bab 4: Hasil UAT, nilai MAPE, analisis produk off-diagonal.','BAB 4-5',1],
+  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-22","Minggu, 22 Nov",'Tulis Bab 5: Kesimpulan & Saran menjawab 4 rumusan masalah. Gabung PDF utuh.','BAB 4-5',1],
+  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-23","Senin, 23 Nov",'SUBMIT BUKU SKRIPSI FINAL BAB 1-5 KE KAMPUS.','DEADLINE',1],
+  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-24","Selasa, 24-29 Nov",'Siapkan slide presentasi akhir. Simulasi presentasi. Latihan pertanyaan dosen.','SIDANG',1],
+  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-30","Senin, 30 Nov",'SIDANG AKHIR SKRIPSI -- resmi lulus S.Kom!','FINAL',1]
+].map((x,i)=>({
+  id:i+1,
+  section:x[0],
+  phase:x[1],
+  date:x[2],
+  day:x[3],
+  title:x[4],
+  tag:x[5],
+  urgent:x[6]
+}));
 
 /* ═══ STATE ═══ */
 let state=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
