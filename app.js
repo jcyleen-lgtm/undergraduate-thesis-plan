@@ -1,3 +1,33 @@
+/* ═══════════════ FLOATING PETALS ═══════════════ */
+(function spawnPetals() {
+  const container = document.getElementById('petals');
+  function createPetal() {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    const size = 8 + Math.random() * 14;
+    petal.style.width = size + 'px';
+    petal.style.height = size + 'px';
+    petal.style.left = Math.random() * 100 + 'vw';
+    petal.style.setProperty('--drift', (Math.random() - 0.5) * 180 + 'px');
+    petal.style.setProperty('--spin', (Math.random() * 720 - 360) + 'deg');
+    petal.style.animationDuration = (6 + Math.random() * 8) + 's';
+    petal.style.animationDelay = Math.random() * 2 + 's';
+    container.appendChild(petal);
+    petal.addEventListener('animationend', () => petal.remove());
+  }
+  // initial burst
+  for (let i = 0; i < 6; i++) setTimeout(createPetal, i * 400);
+  // steady stream
+  setInterval(createPetal, 2200);
+})();
+
+/* ═══════════════ SCROLL FADE-IN ═══════════════ */
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+/* ═══════════════ TASK DATA ═══════════════ */
 const STORAGE_KEY = "thesis-garden-progress-v1";
 
 const tasks = [
@@ -29,46 +59,47 @@ const tasks = [
   ["November · Uji Program, UAT & Sidang Akhir","November","2026-11-21","21–23 Nov",'🔥 Final sprint: tulis Bab 4 (UAT, off-diagonal, MAPE) dan Bab 5.','BAB 4–5',1],
   ["November · Uji Program, UAT & Sidang Akhir","November","2026-11-23","Senin, 23 Nov",'🚨 SUBMIT BUKU SKRIPSI FINAL BAB 1–5.','DEADLINE',1],
   ["November · Uji Program, UAT & Sidang Akhir","November","2026-11-30","Senin, 30 Nov",'🎓 SIDANG AKHIR SKRIPSI — pertahankan hasil dashboard dan resmi mengejar gelar S.Kom!','FINAL',1]
-].map((x,i)=>({id:i+1,section:x[0],phase:x[1],date:x[2],day:x[3],title:x[4],tag:x[5],urgent:x[6]}));
+].map((x, i) => ({ id: i + 1, section: x[0], phase: x[1], date: x[2], day: x[3], title: x[4], tag: x[5], urgent: x[6] }));
 
+/* ═══════════════ STATE ═══════════════ */
 let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
 let filter = "all";
-
 const $ = id => document.getElementById(id);
 
-function formatDate(d){
-  return new Date(d+"T00:00:00").toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"});
+function formatDate(d) {
+  return new Date(d + "T00:00:00").toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
 }
-function isDone(id){ return state[id] === true; }
-function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function isDone(id) { return state[id] === true; }
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
 
-function render(){
-  const container=$("taskContainer");
-  container.innerHTML="";
-  const query=$("search").value.trim().toLowerCase();
-  const groups={};
+/* ═══════════════ RENDER ═══════════════ */
+function render() {
+  const container = $("taskContainer");
+  container.innerHTML = "";
+  const query = $("search").value.trim().toLowerCase();
+  const groups = {};
 
-  tasks.forEach(task=>{
-    const done=isDone(task.id);
-    const matchesFilter=filter==="all" || (filter==="done"&&done) || (filter==="todo"&&!done);
-    const matchesSearch=!query || `${task.title} ${task.tag} ${task.section}`.toLowerCase().includes(query);
-    if(!matchesFilter || !matchesSearch) return;
+  tasks.forEach(task => {
+    const done = isDone(task.id);
+    const matchesFilter = filter === "all" || (filter === "done" && done) || (filter === "todo" && !done);
+    const matchesSearch = !query || `${task.title} ${task.tag} ${task.section}`.toLowerCase().includes(query);
+    if (!matchesFilter || !matchesSearch) return;
     (groups[task.section] ||= []).push(task);
   });
 
-  Object.entries(groups).forEach(([section,list])=>{
-    const sectionEl=document.createElement("section");
-    sectionEl.className="section";
-    sectionEl.innerHTML=`<div class="section-header"><small>${list[0].phase}</small><h2>${section}</h2></div><div class="timeline"></div>`;
-    const timeline=sectionEl.querySelector(".timeline");
+  Object.entries(groups).forEach(([section, list]) => {
+    const sectionEl = document.createElement("section");
+    sectionEl.className = "section fade-in";
+    sectionEl.innerHTML = `<div class="section-header"><small>${list[0].phase}</small><h2>${section}</h2></div><div class="timeline"></div>`;
+    const timeline = sectionEl.querySelector(".timeline");
 
-    list.forEach(task=>{
-      const done=isDone(task.id);
-      const article=document.createElement("article");
-      article.className=`task ${done?"done":""} ${task.urgent?"urgent":""}`;
-      article.innerHTML=`
+    list.forEach(task => {
+      const done = isDone(task.id);
+      const article = document.createElement("article");
+      article.className = `task ${done ? "done" : ""} ${task.urgent ? "urgent" : ""}`;
+      article.innerHTML = `
         <label class="check" title="Mark as done">
-          <input type="checkbox" ${done?"checked":""}>
+          <input type="checkbox" ${done ? "checked" : ""}>
           <span>✓</span>
         </label>
         <div>
@@ -76,48 +107,65 @@ function render(){
           <div class="title">${task.title}</div>
         </div>
         <div class="tag">${task.tag}</div>`;
-      article.querySelector("input").addEventListener("change",e=>{
-        state[task.id]=e.target.checked;
-        save(); render();
+      article.querySelector("input").addEventListener("change", e => {
+        state[task.id] = e.target.checked;
+        save();
+        render();
       });
       timeline.appendChild(article);
     });
     container.appendChild(sectionEl);
+
+    // Observe new sections for fade-in
+    fadeObserver.observe(sectionEl);
+    // Trigger immediately if already in view
+    requestAnimationFrame(() => {
+      const rect = sectionEl.getBoundingClientRect();
+      if (rect.top < window.innerHeight) sectionEl.classList.add('visible');
+    });
   });
 
-  $("empty").style.display=container.children.length?"none":"block";
+  $("empty").style.display = container.children.length ? "none" : "block";
   updateStats();
 }
 
-function updateStats(){
-  const total=tasks.length;
-  const done=tasks.filter(t=>isDone(t.id)).length;
-  $("total").textContent=total;
-  $("completed").textContent=`${done}/${total}`;
-  $("progressBar").style.width=(total?Math.round(done/total*100):0)+"%";
+function updateStats() {
+  const total = tasks.length;
+  const done = tasks.filter(t => isDone(t.id)).length;
+  $("total").textContent = total;
+  $("completed").textContent = `${done}/${total}`;
+  $("progressBar").style.width = (total ? Math.round(done / total * 100) : 0) + "%";
 
-  const today=new Date();
-  today.setHours(0,0,0,0);
-  const next=tasks.filter(t=>!isDone(t.id)).map(t=>({...t,dt:new Date(t.date+"T00:00:00")}))
-    .filter(t=>t.dt>=today).sort((a,b)=>a.dt-b.dt)[0];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const next = tasks
+    .filter(t => !isDone(t.id))
+    .map(t => ({ ...t, dt: new Date(t.date + "T00:00:00") }))
+    .filter(t => t.dt >= today)
+    .sort((a, b) => a.dt - b.dt)[0];
 
-  if(!next){$("deadline").textContent="DONE";$("days").textContent="🌷";return;}
-  $("deadline").textContent=next.dt.toLocaleDateString("id-ID",{day:"2-digit",month:"short"});
-  $("days").textContent=Math.ceil((next.dt-today)/86400000)+" days";
+  if (!next) { $("deadline").textContent = "DONE"; $("days").textContent = "🌷"; return; }
+  $("deadline").textContent = next.dt.toLocaleDateString("id-ID", { day: "2-digit", month: "short" });
+  $("days").textContent = Math.ceil((next.dt - today) / 86400000) + " days";
 }
 
-$("search").addEventListener("input",render);
-document.querySelectorAll(".filter").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+/* ═══════════════ EVENTS ═══════════════ */
+$("search").addEventListener("input", render);
+
+document.querySelectorAll(".filter").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
-    filter=btn.dataset.filter;
+    filter = btn.dataset.filter;
     render();
   });
 });
-$("reset").addEventListener("click",()=>{
-  if(confirm("Reset semua progress checklist?")){
-    state={}; save(); render();
+
+$("reset").addEventListener("click", () => {
+  if (confirm("Reset semua progress checklist?")) {
+    state = {};
+    save();
+    render();
   }
 });
 
