@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff8df">
+  <title>Thesis Garden · 2026</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+  <header class="hero">
+    <div class="flower flower-a">✿</div>
+    <div class="flower flower-b">❀</div>
+    <div class="leaf leaf-a">〰</div>
+    <div class="hero-content">
+      <div class="eyebrow">THESIS PLANNING · 2026</div>
+      <h1>thesis<br>garden</h1>
+      <div class="subtitle">GROW THE RESEARCH · HARVEST THE DEGREE</div>
+      <p>Satu task kecil setiap hari. Sampai akhirnya semua tumbuh menjadi S.Kom.</p>
+    </div>
+  </header>
+
+  <div class="intro">
+    <span>🌹 DATA</span><span>🌸 ANALYSIS</span><span>🌿 DASHBOARD</span><span>🌷 FINAL SPRINT</span>
+  </div>
+
+  <main>
+    <section class="overview">
+      <div>
+        <small>YOUR THESIS AT A GLANCE</small>
+        <h2>Let's grow this.</h2>
+        <p>Progress kecil setiap hari. Deadline besar jangan sampai kelewat.</p>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat cream"><small>TOTAL TASK</small><strong id="total">0</strong></div>
+      <div class="stat sage">
+        <small>SELESAI</small><strong id="completed">0/0</strong>
+        <div class="progress"><div id="progressBar"></div></div>
+      </div>
+      <div class="stat pink"><small>NEXT DEADLINE</small><strong id="deadline">—</strong></div>
+      <div class="stat olive"><small>DAYS LEFT</small><strong id="days">—</strong></div>
+    </section>
+
+    <section class="milestones">
+      <div class="milestone cream"><small>28 SEP · 08.00</small><h3>Proposal Bab 1–3</h3><p>🚨 Submit proposal lengkap</p></div>
+      <div class="milestone pink"><small>5–16 OCT</small><h3>Sidang Proposal</h3><p>🛡️ Present your research</p></div>
+      <div class="milestone sage"><small>9–20 NOV</small><h3>Uji Program</h3><p>💻 Dashboard 100% functional</p></div>
+      <div class="milestone olive"><small>30 NOV</small><h3>Sidang Akhir</h3><p>🎓 S.Kom moment</p></div>
+    </section>
+
+    <div class="tools">
+      <input type="search" id="search" placeholder="search your thesis garden...">
+      <button data-filter="all" class="filter active">ALL</button>
+      <button data-filter="todo" class="filter">TO DO</button>
+      <button data-filter="done" class="filter">DONE</button>
+      <button id="reset" class="filter reset">RESET</button>
+    </div>
+
+    <div id="taskContainer"></div>
+    <div id="empty">No flowers here... eh, no tasks found. 🌱</div>
+  </main>
+
+  <footer>
+    <div>keep growing 🌷</div>
+    <small>THESIS GARDEN · 2026</small>
+  </footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
