@@ -3,56 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#fff8df">
+  <meta name="theme-color" content="#faf6f0">
   <title>Thesis Garden · 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Josefin+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- Floating petals container -->
+<div id="petals" aria-hidden="true"></div>
+
+<!-- Botanical corner decorations -->
+<svg class="corner-deco top-left" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10 190 Q30 120 80 90 Q50 70 30 10" stroke="var(--sage-dark)" stroke-width="1.2" fill="none" opacity="0.3"/>
+  <ellipse cx="80" cy="88" rx="12" ry="18" fill="var(--sage)" opacity="0.25" transform="rotate(-20 80 88)"/>
+  <ellipse cx="60" cy="72" rx="10" ry="16" fill="var(--sage)" opacity="0.2" transform="rotate(-40 60 72)"/>
+  <ellipse cx="40" cy="40" rx="8" ry="14" fill="var(--sage)" opacity="0.15" transform="rotate(-60 40 40)"/>
+  <circle cx="82" cy="85" r="4" fill="var(--pink-accent)" opacity="0.4"/>
+</svg>
+<svg class="corner-deco top-right" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M190 190 Q170 120 120 90 Q150 70 170 10" stroke="var(--sage-dark)" stroke-width="1.2" fill="none" opacity="0.3"/>
+  <ellipse cx="120" cy="88" rx="12" ry="18" fill="var(--sage)" opacity="0.25" transform="rotate(20 120 88)"/>
+  <ellipse cx="140" cy="72" rx="10" ry="16" fill="var(--sage)" opacity="0.2" transform="rotate(40 140 72)"/>
+  <ellipse cx="160" cy="40" rx="8" ry="14" fill="var(--sage)" opacity="0.15" transform="rotate(60 160 40)"/>
+  <circle cx="118" cy="85" r="4" fill="var(--pink-accent)" opacity="0.4"/>
+</svg>
+
 <div class="page">
   <header class="hero">
-    <div class="flower flower-a">✿</div>
-    <div class="flower flower-b">❀</div>
-    <div class="leaf leaf-a">〰</div>
     <div class="hero-content">
-      <div class="eyebrow">THESIS PLANNING · 2026</div>
-      <h1>thesis<br>garden</h1>
-      <div class="subtitle">GROW THE RESEARCH · HARVEST THE DEGREE</div>
-      <p>Satu task kecil setiap hari. Sampai akhirnya semua tumbuh menjadi S.Kom.</p>
+      <div class="eyebrow">✦ THESIS PLANNING · 2026 ✦</div>
+      <h1>Thesis<br><em>Garden</em></h1>
+      <div class="divider-flower">
+        <svg width="120" height="40" viewBox="0 0 120 40">
+          <line x1="0" y1="20" x2="40" y2="20" stroke="var(--sage-dark)" stroke-width="0.8" opacity="0.4"/>
+          <g transform="translate(60,20)" class="spin-flower">
+            <ellipse rx="8" ry="3" fill="var(--pink-accent)" opacity="0.6" transform="rotate(0)"/>
+            <ellipse rx="8" ry="3" fill="var(--pink-accent)" opacity="0.6" transform="rotate(60)"/>
+            <ellipse rx="8" ry="3" fill="var(--pink-accent)" opacity="0.6" transform="rotate(120)"/>
+            <circle r="3" fill="var(--gold)"/>
+          </g>
+          <line x1="80" y1="20" x2="120" y2="20" stroke="var(--sage-dark)" stroke-width="0.8" opacity="0.4"/>
+        </svg>
+      </div>
+      <p class="subtitle">grow the research · harvest the degree</p>
+      <p class="tagline">Satu task kecil setiap hari.<br>Sampai akhirnya semua tumbuh menjadi <strong>S.Kom.</strong></p>
     </div>
   </header>
 
   <div class="intro">
-    <span>🌹 DATA</span><span>🌸 ANALYSIS</span><span>🌿 DASHBOARD</span><span>🌷 FINAL SPRINT</span>
+    <span class="intro-pill">🌹 DATA</span>
+    <span class="intro-pill">🌸 ANALYSIS</span>
+    <span class="intro-pill">🌿 DASHBOARD</span>
+    <span class="intro-pill">🌷 FINAL SPRINT</span>
   </div>
 
   <main>
-    <section class="overview">
-      <div>
-        <small>YOUR THESIS AT A GLANCE</small>
-        <h2>Let's grow this.</h2>
-        <p>Progress kecil setiap hari. Deadline besar jangan sampai kelewat.</p>
-      </div>
+    <section class="overview fade-in">
+      <small>YOUR THESIS AT A GLANCE</small>
+      <h2>Let's grow this.</h2>
+      <p>Progress kecil setiap hari. Deadline besar jangan sampai kelewat.</p>
     </section>
 
-    <section class="stats">
-      <div class="stat cream"><small>TOTAL TASK</small><strong id="total">0</strong></div>
-      <div class="stat sage">
+    <section class="stats fade-in">
+      <div class="stat card-cream"><small>TOTAL TASKS</small><strong id="total">0</strong><div class="stat-icon">🌱</div></div>
+      <div class="stat card-sage">
         <small>SELESAI</small><strong id="completed">0/0</strong>
         <div class="progress"><div id="progressBar"></div></div>
       </div>
-      <div class="stat pink"><small>NEXT DEADLINE</small><strong id="deadline">—</strong></div>
-      <div class="stat olive"><small>DAYS LEFT</small><strong id="days">—</strong></div>
+      <div class="stat card-pink"><small>NEXT DEADLINE</small><strong id="deadline">—</strong><div class="stat-icon">📅</div></div>
+      <div class="stat card-olive"><small>DAYS LEFT</small><strong id="days">—</strong><div class="stat-icon">⏳</div></div>
     </section>
 
-    <section class="milestones">
-      <div class="milestone cream"><small>28 SEP · 08.00</small><h3>Proposal Bab 1–3</h3><p>🚨 Submit proposal lengkap</p></div>
-      <div class="milestone pink"><small>5–16 OCT</small><h3>Sidang Proposal</h3><p>🛡️ Present your research</p></div>
-      <div class="milestone sage"><small>9–20 NOV</small><h3>Uji Program</h3><p>💻 Dashboard 100% functional</p></div>
-      <div class="milestone olive"><small>30 NOV</small><h3>Sidang Akhir</h3><p>🎓 S.Kom moment</p></div>
+    <section class="milestones fade-in">
+      <div class="milestone card-cream"><small>28 SEP · 08.00</small><h3>Proposal Bab 1–3</h3><p>🚨 Submit proposal lengkap</p></div>
+      <div class="milestone card-pink"><small>5–16 OCT</small><h3>Sidang Proposal</h3><p>🛡️ Present your research</p></div>
+      <div class="milestone card-sage"><small>9–20 NOV</small><h3>Uji Program</h3><p>💻 Dashboard 100% functional</p></div>
+      <div class="milestone card-olive"><small>30 NOV</small><h3>Sidang Akhir</h3><p>🎓 S.Kom moment</p></div>
     </section>
 
-    <div class="tools">
-      <input type="search" id="search" placeholder="search your thesis garden...">
+    <div class="tools fade-in">
+      <input type="search" id="search" placeholder="🔍 search your thesis garden...">
       <button data-filter="all" class="filter active">ALL</button>
       <button data-filter="todo" class="filter">TO DO</button>
       <button data-filter="done" class="filter">DONE</button>
@@ -64,10 +97,22 @@
   </main>
 
   <footer>
-    <div>keep growing 🌷</div>
+    <div class="footer-flower">
+      <svg width="50" height="50" viewBox="0 0 50 50" class="spin-flower-slow">
+        <g transform="translate(25,25)">
+          <ellipse rx="10" ry="4" fill="var(--pink-accent)" opacity="0.5" transform="rotate(0)"/>
+          <ellipse rx="10" ry="4" fill="var(--pink-accent)" opacity="0.5" transform="rotate(45)"/>
+          <ellipse rx="10" ry="4" fill="var(--pink-accent)" opacity="0.5" transform="rotate(90)"/>
+          <ellipse rx="10" ry="4" fill="var(--pink-accent)" opacity="0.5" transform="rotate(135)"/>
+          <circle r="5" fill="var(--gold)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="footer-text">keep growing</div>
     <small>THESIS GARDEN · 2026</small>
   </footer>
 </div>
+
 <script src="app.js"></script>
 </body>
 </html>
