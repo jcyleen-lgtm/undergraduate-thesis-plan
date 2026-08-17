@@ -11,7 +11,7 @@
   for(let i=0;i<25;i++){const s=document.createElement('div');s.className='sparkle';s.style.left=Math.random()*100+'vw';s.style.top=Math.random()*100+'vh';s.style.width=(2+Math.random()*3)+'px';s.style.height=s.style.width;s.style.animationDuration=(2+Math.random()*4)+'s';s.style.animationDelay=Math.random()*5+'s';const colors=['#d4a843','#e8ada7','#d4918a','#a3b48c','#f4ddd9'];s.style.background=colors[Math.floor(Math.random()*colors.length)];c.appendChild(s)}
 })();
 
-/* ═══ FLOWER BURST ON DONE ═══ */
+/* ═══ FLOWER BURST ═══ */
 function flowerBurst(x,y){
   const layer=document.getElementById('flower-burst-layer');
   const colors=['#d4918a','#e8ada7','#d4a843','#a3b48c','#f4ddd9','#d5dfc8'];
@@ -22,6 +22,7 @@ function flowerBurst(x,y){
 const quotes=[
   '"The secret of getting ahead is getting started." — Mark Twain',
   '"Small daily improvements over time lead to stunning results." — Robin Sharma',
+  '"A garden requires patient labor. So does a thesis."',
   '"You don\'t have to be great to start, but you have to start to be great." — Zig Ziglar',
   '"It always seems impossible until it\'s done." — Nelson Mandela',
   '"Plant your seeds with patience. The bloom will come."',
@@ -34,12 +35,10 @@ const quotes=[
   '"You are doing better than you think. Keep going."',
   '"The flower that blooms in adversity is the rarest and most beautiful of all."',
   '"Don\'t watch the clock; do what it does — keep going." — Sam Levenson',
-  '"Sometimes you gotta run before you can walk." — Tony Stark',
-  '"Part of the journey is the end." — Tony Stark',
-  '"With great power comes great responsibility." — Spider-Man',
-  '"No matter how buried it gets, or lost you feel, you must promise me that you will hold on to hope." — Aunt May',
+  '"Jangan track waktu belajar. Track OUTPUT."',
+  '"45 menit + 1 output = PROGRESS."',
+  '"Konsisten pelan lebih baik dari sprint brutal 3 hari lalu tumbang."'
 ];
-
 (function setGreeting(){
   const h=new Date().getHours();
   let g='Good evening,';
@@ -52,85 +51,157 @@ const quotes=[
 const fadeObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.15});
 document.querySelectorAll('.fade-in').forEach(el=>fadeObs.observe(el));
 
-/* ═══ TASK DATA (updated from master checklist) ═══ */
-const STORAGE_KEY="thesis-garden-progress-v2";
-const NOTES_KEY="thesis-garden-notes-v1";
+/* ═══ TASK DATA ═══ */
+const STORAGE_KEY="thesis-garden-progress-v3";
+const NOTES_KEY="thesis-garden-notes-v2";
 
 const tasks=[
-  // FASE 1 MINGGU 1
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-14","Jumat, 14 Agst",'Ekspor laporan transaksi "Sales by Item Detail" dari Accurate PT X periode Jan 2024 - Jun 2026.','DATA',1],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-15","Sabtu, 15 Agst",'Setup folder /Skripsi_San/Data/Raw/ dan kelompokkan file Excel bulanan ke dalamnya.','DATA',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-16","Minggu, 16 Agst",'Bikin draf Skripsi_San_Bab1.docx. Kopas Latar Belakang dari sinopsis.','BAB 1',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-17","Senin, 17 Agst",'Tulis script Python (pandas) untuk batch-merge seluruh file transaksi bulanan.','PYTHON',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-18","Selasa, 18 Agst",'Jalankan script Python dan simpan output: combined_raw_sales.csv.','PYTHON',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-19","Rabu, 19 Agst",'Filter kolom HPP, temukan satu SKU dengan margin aneh ~98.8%.','ANALISIS',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-20","Kamis, 20 Agst",'Temui tim accounting PT X. Validasi apakah margin 98.8% error input atau transaksi khusus.','VALIDASI',0],
-  ["Fase 1: Data Preparation","Minggu 1","2026-08-21","Jumat, 21 Agst",'Koreksi data anomali, jalankan ulang script, ekspor cleaned_sales_data.csv.','DATA',0],
+  // 17 AGUSTUS — FOUNDATION
+  ["17 Agst — Foundation Day","Week 1","2026-08-17","Minggu, 17 Agst","Freeze research specification","SPEC",1],
+  ["17 Agst — Foundation Day","Week 1","2026-08-17","Minggu, 17 Agst","Tentukan periode data final","SPEC",1],
+  ["17 Agst — Foundation Day","Week 1","2026-08-17","Minggu, 17 Agst","Tentukan metode forecasting final","SPEC",1],
+  ["17 Agst — Foundation Day","Week 1","2026-08-17","Minggu, 17 Agst","Tentukan metode ABC final","SPEC",1],
+  ["17 Agst — Foundation Day","Week 1","2026-08-17","Minggu, 17 Agst","Tentukan variabel penelitian","SPEC",0],
+  ["17 Agst — Foundation Day","Week 1","2026-08-17","Minggu, 17 Agst","Tentukan metode evaluasi","SPEC",0],
+  ["17 Agst — Foundation Day","Week 1","2026-08-17","Minggu, 17 Agst","Buat outline BAB 1-3","OUTLINE",1],
+  ["17 Agst — Foundation Day","Week 1","2026-08-17","Minggu, 17 Agst","Mapping isi sinopsis ke BAB 1-3","OUTLINE",0],
 
-  // FASE 1 MINGGU 2
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-22","Sabtu, 22 Agst",'Tulis script Python untuk hitung Margin Kontribusi: (Harga Jual - HPP) x Kuantitas.','PYTHON',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-23","Minggu, 23 Agst",'Urutkan produk berdasarkan Revenue dan Margin Kontribusi untuk Matriks 3x3 Flores & Whybark.','ABC',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-24","Senin, 24 Agst",'Petakan produk ke Matriks 3x3. Identifikasi produk off-diagonal.','ABC',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-25","Selasa, 25 Agst",'Bikin Skripsi_San_Bab3.docx. Tulis Metode Pengumpulan Data dan proses ETL Python.','BAB 3',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-26","Rabu, 26 Agst",'Rancang Kimball 9-Step: proses bisnis, grain, tabel dimensi, tabel fakta penjualan.','KIMBALL',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-27","Kamis, 27 Agst",'Buat diagram Star Schema di Word (fact sales + dimensi waktu, produk, kategori).','KIMBALL',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-28","Jumat, 28 Agst",'Rancang mockup visual dashboard Power BI (letak 6 fitur utama).','POWER BI',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-29","Sabtu, 29 Agst",'Tulis draf kuesioner UAT (Likert) dan transkrip wawancara kebutuhan sistem untuk Bab 3.','METODOLOGI',0],
-  ["Fase 1: Analisis & Desain Bab 3","Minggu 2","2026-08-30","Minggu, 30 Agst",'Baca ulang dan rapikan format Bab 1 & Bab 3 bagian penyiapan data.','CHECKPOINT',1],
+  // 18 AGUSTUS — BAB 1
+  ["18 Agst — BAB 1","Week 1","2026-08-18","Senin, 18 Agst","Draft Latar Belakang","BAB 1",0],
+  ["18 Agst — BAB 1","Week 1","2026-08-18","Senin, 18 Agst","Draft Identifikasi Masalah","BAB 1",0],
+  ["18 Agst — BAB 1","Week 1","2026-08-18","Senin, 18 Agst","Draft Rumusan Masalah","BAB 1",0],
+  ["18 Agst — BAB 1","Week 1","2026-08-18","Senin, 18 Agst","Cek kesesuaian dengan research specification","BAB 1",0],
 
-  // FASE 2 MINGGU 3
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-01","Selasa, 1 Sept",'Bikin Skripsi_San_Bab2.docx. Tulis teori dasar Business Intelligence (BI) & Power BI.','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-02","Rabu, 2 Sept",'Tulis teori Klasifikasi ABC Ganda, sitasi Flores & Whybark (1986).','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-03","Kamis, 3 Sept",'Tulis teori peramalan Holt Double Exponential Smoothing (DES).','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-04","Jumat, 4 Sept",'Tulis teori akurasi peramalan MAPE (Mean Absolute Percentage Error).','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-07","Senin, 7 Sept",'Tulis teori pemodelan dimensional Kimball 9-Step.','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-08","Selasa, 8 Sept",'Cari dan ulas 4 Jurnal Sejenis (UNTAR, UGM, ITERA, Chalmers).','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-09","Rabu, 9 Sept",'Buat tabel ringkasan penelitian terdahulu di Bab 2.','BAB 2',0],
-  ["Fase 2: Tinjauan Pustaka Bab 2","Minggu 3","2026-09-10","Kamis, 10 Sept",'Masukkan rumus margin kontribusi ke Bab 2. Integrasikan Bab 2 ke draf besar.','BAB 2',0],
+  // 19 AGUSTUS — BAB 1
+  ["19 Agst — BAB 1","Week 1","2026-08-19","Selasa, 19 Agst","Draft Batasan Masalah","BAB 1",0],
+  ["19 Agst — BAB 1","Week 1","2026-08-19","Selasa, 19 Agst","Draft Tujuan Penelitian","BAB 1",0],
+  ["19 Agst — BAB 1","Week 1","2026-08-19","Selasa, 19 Agst","Draft Manfaat Penelitian","BAB 1",0],
+  ["19 Agst — BAB 1","Week 1","2026-08-19","Selasa, 19 Agst","Rapikan BAB 1","BAB 1",0],
+  ["19 Agst — BAB 1","Week 1","2026-08-19","Selasa, 19 Agst","Tandai bagian [VERIFY]","BAB 1",0],
 
-  // FASE 2 MINGGU 4
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-12","Sabtu, 12 Sept",'Tulis sub-bab Justifikasi Penolakan Metode: kenapa SES ditolak (data ada tren).','BAB 3',0],
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-15","Selasa, 15 Sept",'Tulis justifikasi kenapa Holt-Winters ditolak (data non-musiman), rujuk paper Khedlekar.','BAB 3',0],
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-19","Sabtu, 19 Sept",'Gabungkan Bab 1, 2, 3 menjadi satu berkas proposal. Rapikan daftar pustaka IEEE.','FINALISASI',1],
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-25","Jumat, 25 Sept",'Bimbingan kilat dosen pembimbing, perbaikan minor, ekspor PDF, jilid proposal.','FINALISASI',1],
-  ["Fase 2: Finalisasi Proposal","Minggu 4","2026-09-28","Senin, 28 Sept",'SUBMIT PROPOSAL LENGKAP BAB 1-3 KE KAMPUS.','DEADLINE',1],
+  // 20 AGUSTUS — BAB 2 + DATA
+  ["20 Agst — BAB 2 + Data","Week 1","2026-08-20","Rabu, 20 Agst","Draft teori Manajemen Persediaan","BAB 2",0],
+  ["20 Agst — BAB 2 + Data","Week 1","2026-08-20","Rabu, 20 Agst","Draft Pengendalian Persediaan","BAB 2",0],
+  ["20 Agst — BAB 2 + Data","Week 1","2026-08-20","Rabu, 20 Agst","Draft ABC Analysis","BAB 2",0],
+  ["20 Agst — BAB 2 + Data","Week 1","2026-08-20","Rabu, 20 Agst","Export data Accurate","DATA",1],
+  ["20 Agst — BAB 2 + Data","Week 1","2026-08-20","Rabu, 20 Agst","Cek struktur file","DATA",0],
+  ["20 Agst — BAB 2 + Data","Week 1","2026-08-20","Rabu, 20 Agst","Cek periode data","DATA",0],
+  ["20 Agst — BAB 2 + Data","Week 1","2026-08-20","Rabu, 20 Agst","Cek jumlah SKU","DATA",0],
 
-  // FASE 3
-  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-04","Minggu, 4 Okt",'Rancang slide presentasi proposal. Latihan jawab pertanyaan kritis.','SIDANG',1],
-  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-05","Senin, 5-16 Okt",'SIDANG PROPOSAL. Presentasikan rencana penelitian, skema Kimball, mockup dashboard.','SIDANG',1],
-  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-17","Sabtu, 17 Okt",'Selesaikan revisi dari dosen penguji. Minta tanda tangan persetujuan.','REVISI',0],
-  ["Fase 3: Sidang Proposal & Backend","Oktober","2026-10-25","Minggu, 25 Okt",'Jalankan script Python Holt DES bulanan per produk. Hubungkan output ke Power BI.','POWER BI',0],
+  // 21 AGUSTUS — BAB 2 + DATA
+  ["21 Agst — BAB 2 + Data","Week 1","2026-08-21","Kamis, 21 Agst","Draft ABC Multi-Criteria","BAB 2",0],
+  ["21 Agst — BAB 2 + Data","Week 1","2026-08-21","Kamis, 21 Agst","Draft Sales Value","BAB 2",0],
+  ["21 Agst — BAB 2 + Data","Week 1","2026-08-21","Kamis, 21 Agst","Draft Margin Contribution","BAB 2",0],
+  ["21 Agst — BAB 2 + Data","Week 1","2026-08-21","Kamis, 21 Agst","Cek missing value","DATA",0],
+  ["21 Agst — BAB 2 + Data","Week 1","2026-08-21","Kamis, 21 Agst","Cek duplicate","DATA",0],
+  ["21 Agst — BAB 2 + Data","Week 1","2026-08-21","Kamis, 21 Agst","Cek inkonsistensi data","DATA",0],
+  ["21 Agst — BAB 2 + Data","Week 1","2026-08-21","Kamis, 21 Agst","Dokumentasikan masalah data","DATA",0],
 
-  // FASE 4 MINGGU 5
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-01","Minggu, 1 Nov",'Hubungkan tabel fakta dan dimensi (Star Schema) di Power BI Desktop.','POWER BI',1],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-02","Senin, 2 Nov",'Buat formula DAX untuk klasifikasi ABC ganda Flores & Whybark.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-03","Selasa, 3 Nov",'Bangun halaman 1: Visualisasi Matriks ABC Ganda (3x3) dan Top 5 Produk.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-04","Rabu, 4 Nov",'Bangun halaman 2: Grafik Forecast Holt DES bulanan per produk.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-05","Kamis, 5 Nov",'Bangun halaman 3: Indikator Reorder Point dan rekomendasi Kuantitas Pemesanan.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-06","Jumat, 6 Nov",'Tambahkan slicer/filter kategori produk dan periode waktu.','POWER BI',0],
-  ["Fase 4: Dashboard Build","Minggu 5","2026-11-07","Sabtu, 7 Nov",'Self-test: pastikan semua visualisasi dan filter Power BI tanpa error.','POWER BI',1],
+  // 22 AGUSTUS — BAB 2
+  ["22 Agst — BAB 2","Week 1","2026-08-22","Jumat, 22 Agst","Draft Forecasting","BAB 2",0],
+  ["22 Agst — BAB 2","Week 1","2026-08-22","Jumat, 22 Agst","Draft Holt's Double Exponential Smoothing","BAB 2",0],
+  ["22 Agst — BAB 2","Week 1","2026-08-22","Jumat, 22 Agst","Draft MAPE","BAB 2",0],
+  ["22 Agst — BAB 2","Week 1","2026-08-22","Jumat, 22 Agst","Cek sumber teori","BAB 2",0],
 
-  // FASE 4 MINGGU 6
-  ["Fase 4: Uji Program & UAT","Minggu 6","2026-11-09","Senin, 9-20 Nov",'UJI PROGRAM KAMPUS. Demokan dashboard ke lab/dosen penguji.','UJI PROGRAM',1],
-  ["Fase 4: Uji Program & UAT","Minggu 6","2026-11-14","Sabtu, 14-17 Nov",'Demo dashboard fungsional ke 3-5 responden internal PT X.','UAT',0],
-  ["Fase 4: Uji Program & UAT","Minggu 6","2026-11-18","Rabu, 18-20 Nov",'Bagikan kuesioner Likert UAT, rekap ke Excel, hitung rata-rata skor.','UAT',0],
+  // 23 AGUSTUS — BAB 2
+  ["23 Agst — BAB 2","Week 1","2026-08-23","Sabtu, 23 Agst","Draft Business Intelligence","BAB 2",0],
+  ["23 Agst — BAB 2","Week 1","2026-08-23","Sabtu, 23 Agst","Draft ETL","BAB 2",0],
+  ["23 Agst — BAB 2","Week 1","2026-08-23","Sabtu, 23 Agst","Draft Power BI","BAB 2",0],
+  ["23 Agst — BAB 2","Week 1","2026-08-23","Sabtu, 23 Agst","Draft Dashboard","BAB 2",0],
+  ["23 Agst — BAB 2","Week 1","2026-08-23","Sabtu, 23 Agst","Buat daftar penelitian terdahulu","BAB 2",0],
 
-  // FASE 4 MINGGU 7
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-21","Sabtu, 21 Nov",'Tulis Bab 4: Hasil UAT, nilai MAPE, analisis produk off-diagonal.','BAB 4-5',1],
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-22","Minggu, 22 Nov",'Tulis Bab 5: Kesimpulan & Saran menjawab 4 rumusan masalah. Gabung PDF utuh.','BAB 4-5',1],
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-23","Senin, 23 Nov",'SUBMIT BUKU SKRIPSI FINAL BAB 1-5 KE KAMPUS.','DEADLINE',1],
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-24","Selasa, 24-29 Nov",'Siapkan slide presentasi akhir. Simulasi presentasi. Latihan pertanyaan dosen.','SIDANG',1],
-  ["Fase 4: Penulisan & Sidang Akhir","Minggu 7","2026-11-30","Senin, 30 Nov",'SIDANG AKHIR SKRIPSI -- resmi lulus S.Kom!','FINAL',1]
-].map((x,i)=>({
-  id:i+1,
-  section:x[0],
-  phase:x[1],
-  date:x[2],
-  day:x[3],
-  title:x[4],
-  tag:x[5],
-  urgent:x[6]
-}));
+  // 24 AGUSTUS — BAB 2 SELESAI
+  ["24 Agst — BAB 2 Selesai","Week 2","2026-08-24","Minggu, 24 Agst","Selesaikan penelitian terdahulu","BAB 2",0],
+  ["24 Agst — BAB 2 Selesai","Week 2","2026-08-24","Minggu, 24 Agst","Buat kerangka pemikiran","BAB 2",0],
+  ["24 Agst — BAB 2 Selesai","Week 2","2026-08-24","Minggu, 24 Agst","Lengkapi citation","BAB 2",0],
+  ["24 Agst — BAB 2 Selesai","Week 2","2026-08-24","Minggu, 24 Agst","Rapikan BAB 2","BAB 2",0],
+  ["24 Agst — BAB 2 Selesai","Week 2","2026-08-24","Minggu, 24 Agst","Cek teori <> metode penelitian","BAB 2",0],
+
+  // 25 AGUSTUS — BAB 3
+  ["25 Agst — BAB 3","Week 2","2026-08-25","Senin, 25 Agst","Draft Objek Penelitian","BAB 3",0],
+  ["25 Agst — BAB 3","Week 2","2026-08-25","Senin, 25 Agst","Draft Metode Penelitian","BAB 3",0],
+  ["25 Agst — BAB 3","Week 2","2026-08-25","Senin, 25 Agst","Draft Pengumpulan Data","BAB 3",0],
+  ["25 Agst — BAB 3","Week 2","2026-08-25","Senin, 25 Agst","Draft Sumber Data","BAB 3",0],
+  ["25 Agst — BAB 3","Week 2","2026-08-25","Senin, 25 Agst","Tentukan alur penelitian","BAB 3",0],
+
+  // 26 AGUSTUS — BAB 3 + ETL
+  ["26 Agst — BAB 3 + ETL","Week 2","2026-08-26","Selasa, 26 Agst","Draft proses ETL","BAB 3",0],
+  ["26 Agst — BAB 3 + ETL","Week 2","2026-08-26","Selasa, 26 Agst","Dokumentasikan Extract","ETL",0],
+  ["26 Agst — BAB 3 + ETL","Week 2","2026-08-26","Selasa, 26 Agst","Dokumentasikan Transform","ETL",0],
+  ["26 Agst — BAB 3 + ETL","Week 2","2026-08-26","Selasa, 26 Agst","Dokumentasikan Load","ETL",0],
+  ["26 Agst — BAB 3 + ETL","Week 2","2026-08-26","Selasa, 26 Agst","Cleaning data awal","ETL",0],
+  ["26 Agst — BAB 3 + ETL","Week 2","2026-08-26","Selasa, 26 Agst","Tentukan grain data","ETL",0],
+  ["26 Agst — BAB 3 + ETL","Week 2","2026-08-26","Selasa, 26 Agst","Dokumentasikan hasil cleaning","ETL",0],
+
+  // 27 AGUSTUS — BAB 3 + ABC
+  ["27 Agst — BAB 3 + ABC","Week 2","2026-08-27","Rabu, 27 Agst","Draft metode ABC dua kriteria","BAB 3",0],
+  ["27 Agst — BAB 3 + ABC","Week 2","2026-08-27","Rabu, 27 Agst","Tentukan perhitungan Sales Value","ABC",0],
+  ["27 Agst — BAB 3 + ABC","Week 2","2026-08-27","Rabu, 27 Agst","Tentukan perhitungan Margin Contribution","ABC",0],
+  ["27 Agst — BAB 3 + ABC","Week 2","2026-08-27","Rabu, 27 Agst","Tentukan mekanisme klasifikasi","ABC",0],
+  ["27 Agst — BAB 3 + ABC","Week 2","2026-08-27","Rabu, 27 Agst","Mulai implementasi/perhitungan ABC","ABC",0],
+  ["27 Agst — BAB 3 + ABC","Week 2","2026-08-27","Rabu, 27 Agst","Simpan hasil sementara","ABC",0],
+
+  // 28 AGUSTUS — BAB 3 + FORECAST
+  ["28 Agst — BAB 3 + Forecast","Week 2","2026-08-28","Kamis, 28 Agst","Draft metode forecasting","BAB 3",0],
+  ["28 Agst — BAB 3 + Forecast","Week 2","2026-08-28","Kamis, 28 Agst","Draft Holt's Double ES","BAB 3",0],
+  ["28 Agst — BAB 3 + Forecast","Week 2","2026-08-28","Kamis, 28 Agst","Draft MAPE","BAB 3",0],
+  ["28 Agst — BAB 3 + Forecast","Week 2","2026-08-28","Kamis, 28 Agst","Tentukan periode forecast","FORECAST",0],
+  ["28 Agst — BAB 3 + Forecast","Week 2","2026-08-28","Kamis, 28 Agst","Mulai forecasting data","FORECAST",0],
+  ["28 Agst — BAB 3 + Forecast","Week 2","2026-08-28","Kamis, 28 Agst","Dokumentasikan proses","FORECAST",0],
+
+  // 29 AGUSTUS — BAB 3
+  ["29 Agst — BAB 3","Week 2","2026-08-29","Jumat, 29 Agst","Draft pengembangan Dashboard","BAB 3",0],
+  ["29 Agst — BAB 3","Week 2","2026-08-29","Jumat, 29 Agst","Draft metode Prototyping","BAB 3",0],
+  ["29 Agst — BAB 3","Week 2","2026-08-29","Jumat, 29 Agst","Draft desain dashboard","BAB 3",0],
+  ["29 Agst — BAB 3","Week 2","2026-08-29","Jumat, 29 Agst","Draft Black Box Testing","BAB 3",0],
+  ["29 Agst — BAB 3","Week 2","2026-08-29","Jumat, 29 Agst","Draft UAT","BAB 3",0],
+
+  // 30 AGUSTUS — INTEGRATION DAY
+  ["30 Agst — Integration Day","Week 2","2026-08-30","Sabtu, 30 Agst","Selesaikan BAB 3","INTEGRASI",1],
+  ["30 Agst — Integration Day","Week 2","2026-08-30","Sabtu, 30 Agst","Satukan BAB 1-3","INTEGRASI",1],
+  ["30 Agst — Integration Day","Week 2","2026-08-30","Sabtu, 30 Agst","Cek Rumusan Masalah <> Tujuan","QC",0],
+  ["30 Agst — Integration Day","Week 2","2026-08-30","Sabtu, 30 Agst","Cek Tujuan <> Metode","QC",0],
+  ["30 Agst — Integration Day","Week 2","2026-08-30","Sabtu, 30 Agst","Cek Metode <> Output penelitian","QC",0],
+  ["30 Agst — Integration Day","Week 2","2026-08-30","Sabtu, 30 Agst","Cek istilah yang tidak konsisten","QC",0],
+  ["30 Agst — Integration Day","Week 2","2026-08-30","Sabtu, 30 Agst","Cek citation","QC",0],
+  ["30 Agst — Integration Day","Week 2","2026-08-30","Sabtu, 30 Agst","Tandai semua bagian [VERIFY]","QC",0],
+  ["30 Agst — Integration Day","Week 2","2026-08-30","Sabtu, 30 Agst","Backup draft","QC",0],
+
+  // 31 AGUSTUS — FREEZE DAY
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","Baca BAB 1","FREEZE",1],
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","Baca BAB 2","FREEZE",1],
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","Baca BAB 3","FREEZE",1],
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","Perbaiki major error","FREEZE",1],
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","Lengkapi bagian yang kosong","FREEZE",0],
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","Rapikan format","FREEZE",0],
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","Rapikan daftar pustaka","FREEZE",0],
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","Pastikan tidak ada [TODO] yang kritis","FREEZE",0],
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","Simpan Proposal_BAB1-3_v1","FREEZE",1],
+  ["31 Agst — FREEZE DAY","Week 2","2026-08-31","Minggu, 31 Agst","STOP — BAB 1-3 resmi masuk fase revisi","FREEZE",1],
+
+  // SEPTEMBER — BIMBINGAN & REVISI
+  ["September — Bimbingan & Revisi","September","2026-09-05","Minggu I","Bimbingan pertama dengan dosen pembimbing","BIMBINGAN",1],
+  ["September — Bimbingan & Revisi","September","2026-09-12","Minggu II","Revisi BAB 1-3 berdasarkan feedback dosen","REVISI",0],
+  ["September — Bimbingan & Revisi","September","2026-09-19","Minggu III","Bimbingan kedua, finalisasi perbaikan","BIMBINGAN",0],
+  ["September — Bimbingan & Revisi","September","2026-09-25","Minggu IV","Rapikan IEEE format, ekspor PDF, jilid proposal","FINALISASI",1],
+  ["September — Bimbingan & Revisi","September","2026-09-28","28 Sept","SUBMIT PROPOSAL LENGKAP BAB 1-3","DEADLINE",1],
+
+  // OKTOBER
+  ["Oktober — Sidang & Backend","Oktober","2026-10-04","Awal Okt","Rancang slide presentasi proposal, latihan","SIDANG",1],
+  ["Oktober — Sidang & Backend","Oktober","2026-10-05","5-16 Okt","SIDANG PROPOSAL","SIDANG",1],
+  ["Oktober — Sidang & Backend","Oktober","2026-10-17","Pasca Sidang","Revisi dari dosen penguji, tanda tangan persetujuan","REVISI",0],
+  ["Oktober — Sidang & Backend","Oktober","2026-10-25","Akhir Okt","Script Python Holt DES, hubungkan output ke Power BI","POWER BI",0],
+
+  // NOVEMBER
+  ["November — Dashboard & Sidang Akhir","November","2026-11-01","1-8 Nov","Build dashboard Power BI: Star Schema, DAX, 6 fitur utama","POWER BI",1],
+  ["November — Dashboard & Sidang Akhir","November","2026-11-07","7-8 Nov","Self-test semua visualisasi dan filter","POWER BI",1],
+  ["November — Dashboard & Sidang Akhir","November","2026-11-09","9-20 Nov","UJI PROGRAM KAMPUS — demo dashboard","UJI PROGRAM",1],
+  ["November — Dashboard & Sidang Akhir","November","2026-11-14","14-20 Nov","Demo ke 3-5 responden PT X, kuesioner Likert UAT","UAT",0],
+  ["November — Dashboard & Sidang Akhir","November","2026-11-21","21-22 Nov","Tulis BAB 4 (Hasil UAT, MAPE, off-diagonal) dan BAB 5","BAB 4-5",1],
+  ["November — Dashboard & Sidang Akhir","November","2026-11-23","23 Nov","SUBMIT BUKU SKRIPSI FINAL BAB 1-5","DEADLINE",1],
+  ["November — Dashboard & Sidang Akhir","November","2026-11-24","24-29 Nov","Siapkan slide akhir, simulasi presentasi","SIDANG",1],
+  ["November — Dashboard & Sidang Akhir","November","2026-11-30","30 Nov","SIDANG AKHIR SKRIPSI — S.Kom!","FINAL",1]
+].map((x,i)=>({id:i+1,section:x[0],phase:x[1],date:x[2],day:x[3],title:x[4],tag:x[5],urgent:x[6]}));
 
 /* ═══ STATE ═══ */
 let state=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");
@@ -184,7 +255,6 @@ function render(){
           <textarea placeholder="Write your notes here...">${noteText}</textarea>
         </div>`;
 
-      // Checkbox - smooth, no full re-render
       const cb=art.querySelector("input");
       cb.addEventListener("change",e=>{
         state[task.id]=e.target.checked;save();
@@ -201,12 +271,10 @@ function render(){
         updateStats();
       });
 
-      // Notes toggle
       const btn=art.querySelector(".note-toggle");
       const na=art.querySelector(".note-area");
       btn.addEventListener("click",()=>{na.classList.toggle("open");if(na.classList.contains("open"))na.querySelector("textarea").focus()});
 
-      // Notes save
       const ta=art.querySelector("textarea");
       ta.addEventListener("input",()=>{notes[task.id]=ta.value;saveNotes();btn.textContent=ta.value?"[ notes ]":"+ add note"});
 
