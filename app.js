@@ -31,7 +31,7 @@ let filters={skripsi:'all'};
 
 function save(k,v){SS(k,v);cloudSync()}
 function isDone(id){return state[id]===true}
-function fmtDate(d){return new Date(d+'T00:00:00').toLocaleDateString('id-ID',{day:'2-digit',month:'short'})}
+function fmtDate(d){return new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
 function daysUntil(d){return Math.ceil((new Date(d+'T00:00:00')-today)/86400000)}
 
 /* ═══ CLOUD SYNC ═══ */
@@ -138,13 +138,11 @@ function buildTask(task,cat,container){
   const done=cat==='skripsi'?isDone(task.id):task.done;
   const nt=notes[task.id]||'';const dl=task.date?daysUntil(task.date):-999;const ds=!done&&dl>=0&&dl<=2;
   const art=document.createElement('article');
-  art.className='task'+(done?' done':'')+(task.urgent?' urgent':'')+(ds?' due-soon':'');
+  const isNote=task.type==='note';
+  art.className='task'+(done?' done':'')+(task.urgent?' urgent':'')+(ds?' due-soon':'')+(isNote?' note-card':'');
 
   // FIX: no double date
-  let dt='';
-  if(task.day&&task.date){const fd=fmtDate(task.date);dt=task.day===fd?fd:task.day+' &middot; '+fd}
-  else if(task.date)dt=fmtDate(task.date);
-  else if(task.day)dt=task.day;
+  let dt=task.date?fmtDate(task.date):'';
   if(ds&&dl===0)dt+=' <span class="due-badge">TODAY</span>';
   else if(ds)dt+=' <span class="due-badge">'+dl+'d left</span>';
 
@@ -153,7 +151,7 @@ function buildTask(task,cat,container){
   const subs=task.subtasks||[];
 
   art.innerHTML=`<label class="check"><input type="checkbox" ${done?'checked':''}><span>&#10003;</span></label>
-    <div><div class="task-date">${dt}</div><div class="title">${task.title}</div><button class="note-toggle">${nt?'[ notes ]':'+ note'}</button></div>
+    <div>${isNote?'<div class="note-label">NOTE</div>':''}<div class="task-date">${dt}</div><div class="title">${task.title}</div><button class="note-toggle">${nt?'[ notes ]':'+ note'}</button></div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><div class="tag">${task.tag||''}</div>${canDel?'<button class="btn-del" title="Hapus">&#10005;</button>':''}</div>
     <div class="note-area${nt?' open':''}"><textarea placeholder="Tulis catatan...">${nt}</textarea></div>
     ${hasSubtasks?'<div class="subtask-area" id="st-'+task.id+'"></div>':''}`;
@@ -204,7 +202,17 @@ function renderSkripsi(){
 }
 function renderCustom(cat){
   const list=cat==='kuliah'?kuliahTasks:kerjaTasks;const c=$(cat==='kuliah'?'k-tasks':'w-tasks');c.innerHTML='';
-  const sorted=[...list].sort((a,b)=>{if(a.done!==b.done)return a.done?1:-1;if(!a.date)return 1;if(!b.date)return-1;return new Date(a.date)-new Date(b.date)});
+  const q=cat==='kerja'?($('w-search')||{}).value?.trim().toLowerCase()||'':'';
+  const f=filters[cat]||'all';
+  let filtered=list.filter(t=>{
+    if(q&&!`${t.title} ${t.tag||''}`.toLowerCase().includes(q))return false;
+    if(f==='done'&&!t.done)return false;
+    if(f==='task'&&t.type==='note')return false;
+    if(f==='note'&&t.type!=='note')return false;
+    if(f==='todo'&&t.done)return false;
+    return true;
+  });
+  const sorted=[...filtered].sort((a,b)=>{if(a.done!==b.done)return a.done?1:-1;if(!a.date)return 1;if(!b.date)return-1;return new Date(a.date)-new Date(b.date)});
   if(sorted.length){const tl=document.createElement('div');tl.className='timeline';sorted.forEach(t=>buildTask(t,cat,tl));c.appendChild(tl)}
   c.closest('.panel').querySelector('.empty-msg').style.display=sorted.length?'none':'block';updateStats(cat);
 }
@@ -252,7 +260,8 @@ $('scheduleForm').addEventListener('click',e=>{if(e.target.dataset.del!==undefin
 function addTask(cat){
   const p=cat==='kuliah'?'k':'w';const title=$(p+'-title').value.trim();if(!title)return;
   const tag=$(p+'-tag').value.trim().toUpperCase()||'TASK';const date=$(p+'-date').value||'';
-  const task={id:cat[0]+Date.now(),title,tag,date,done:false};
+  const type=cat==='kerja'?$('w-type').value:'task';
+  const task={id:cat[0]+Date.now(),title,tag,date,done:false,type};
   if(cat==='kerja')task.subtasks=[];
   if(cat==='kuliah'){kuliahTasks.push(task);save(K.k,kuliahTasks)}else{kerjaTasks.push(task);save(K.w,kerjaTasks)}
   $(p+'-title').value='';$(p+'-tag').value='';$(p+'-date').value='';renderTab(cat);updateBrief();updateTodayAgenda();
@@ -264,6 +273,8 @@ $('w-title').addEventListener('keydown',e=>{if(e.key==='Enter')addTask('kerja')}
 /* ═══ FILTERS ═══ */
 document.querySelectorAll('[data-cat="skripsi"]').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('[data-cat="skripsi"]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');filters.skripsi=btn.dataset.filter;renderSkripsi()})});
 $('s-search')?.addEventListener('input',renderSkripsi);
+document.querySelectorAll('[data-cat="kerja"]').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('[data-cat="kerja"]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');filters.kerja=btn.dataset.filter;renderCustom('kerja')})});
+$('w-search')?.addEventListener('input',()=>renderCustom('kerja'));
 
 /* ═══ FADE ═══ */
 const fadeObs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.15});
