@@ -148,6 +148,14 @@ body{background:var(--cream);color:var(--text);font-family:'Cormorant Garamond',
 .add-subtask input{flex:1;padding:8px 12px;border:1px solid var(--line);border-radius:10px;font-family:'Josefin Sans',sans-serif;font-size:13px;outline:none;background:var(--white)}
 .add-subtask button{padding:6px 14px;background:var(--sage);color:var(--olive-dark);border:none;border-radius:10px;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:11px}
 
+/* TYPE SELECT */
+.type-select{padding:11px 14px;border:1px solid var(--line);background:var(--white);border-radius:18px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer}
+/* NOTE CARD */
+.task.note-card{border-left:3px solid var(--gold);background:rgba(245,237,223,.85)}
+.task.note-card::before{border-color:var(--gold);background:var(--cream2)}
+.task.note-card:hover::before{background:var(--gold);border-color:var(--gold)}
+.note-label{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.1em;color:var(--gold);margin-bottom:2px}
+
 .empty-msg{display:none;padding:50px;text-align:center;color:var(--muted);font-style:italic;font-size:20px}
 
 footer{background:linear-gradient(135deg,var(--pink-light),var(--pink));text-align:center;padding:40px;border-radius:24px 24px 0 0}
