@@ -151,10 +151,18 @@
         </div>
       </section>
       <div class="add-form fade-in">
-        <input type="text" id="w-title" placeholder="Task / kerjaan...">
+        <select id="w-type" class="type-select"><option value="task">Task</option><option value="note">Note</option></select>
+        <input type="text" id="w-title" placeholder="Task / kerjaan / catatan...">
         <input type="text" id="w-tag" placeholder="Tag" maxlength="12">
         <input type="date" id="w-date">
         <button id="w-add" class="btn-add">+ Add</button>
+      </div>
+      <div class="tools fade-in">
+        <input type="search" id="w-search" placeholder="search kerja...">
+        <button data-filter="all" data-cat="kerja" class="filter active">ALL</button>
+        <button data-filter="task" data-cat="kerja" class="filter">TASKS</button>
+        <button data-filter="note" data-cat="kerja" class="filter">NOTES</button>
+        <button data-filter="done" data-cat="kerja" class="filter">DONE</button>
       </div>
       <div id="w-tasks"></div>
       <div class="empty-msg">Belum ada task.</div>
